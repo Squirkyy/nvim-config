@@ -22,15 +22,12 @@ local plugins = {
     end
   },
   {
-    "mrcjkb/rust-tools.nvim",
+    "mrcjkb/rustaceanvim",
     ft = "rust",
     dependencies = "neovim/nvim-lspconfig",
-    opts = function ()
-     return require "custom.configs.rust-tools"
+    config = function ()
+     return require "custom.configs.rustaceanvim"
     end,
-    config = function (_, opts)
-      require('rust-tools').setup(opts)
-    end
   }
 }
 
