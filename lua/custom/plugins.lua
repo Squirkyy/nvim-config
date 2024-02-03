@@ -24,7 +24,14 @@ local plugins = {
   {
     "mrcjkb/rustaceanvim",
     ft = "rust",
-    dependencies = "neovim/nvim-lspconfig",
+    dependencies = {
+      {
+        "lvimuser/lsp-inlayhints.nvim",
+        opts = {}
+      
+      },
+      "neovim/nvim-lspconfig",
+      },
     config = function ()
      return require "custom.configs.rustaceanvim"
     end,
