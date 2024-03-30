@@ -1,9 +1,9 @@
 local plugins = {
   {
-    "jose-elias-alvarez/null-ls.nvim",
-    event = "VeryLazy",
-    opts = function ()
-      return require"custom.configs.null-ls"
+    "p00f/clangd_extensions.nvim",
+    after = "nvim_lspconfig",
+    config = function ()
+      require "custom.configs.clangd_extensions"
     end
   },
   {
@@ -20,7 +20,7 @@ local plugins = {
               "rust-analyzer",
               "clangd",
               "clang-format",
-        }
+          }
       },
   },
   {
