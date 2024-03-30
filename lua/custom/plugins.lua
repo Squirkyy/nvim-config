@@ -1,5 +1,12 @@
 local plugins = {
   {
+    "jose-elias-alvarez/null-ls.nvim",
+    event = "VeryLazy",
+    opts = function ()
+      return require"custom.configs.null-ls"
+    end
+  },
+  {
       "neovim/nvim-lspconfig",
       config = function()
           require "plugins.configs.lspconfig"
@@ -11,9 +18,9 @@ local plugins = {
       opts = {
           ensure_installed = {
               "rust-analyzer",
-              "typescript-la",
-              "eslint-lsp",
-          },
+              "clangd",
+              "clang-format",
+        }
       },
   },
   {
