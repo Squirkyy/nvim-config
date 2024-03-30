@@ -4,7 +4,7 @@ local plugins = {
     after = "nvim_lspconfig",
     config = function ()
       require "custom.configs.clangd_extensions"
-    end
+    end,
   },
   {
       "neovim/nvim-lspconfig",
