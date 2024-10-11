@@ -27,7 +27,8 @@ local plugins = {
       "rust-lang/rust.vim",
       ft = "rust",
       init = function ()
-          vim.g.rustfmt_autosave = 1
+          -- vim.g.rustfmt_autosave = 1
+          vim.api.nvim_exec([[autocmd BufWritePre *.rs lua vim.lsp.buf.format({ async = true })]], false)
       end
   },
   {
@@ -48,7 +49,7 @@ local plugins = {
       "NvChad/nvterm",
       config = function()
           local isWindows = vim.fn.has("win32") == 1
-          local default_shell = "/usr/bin/zsh" -- Default to zsh for Linux
+          local default_shell = "/usr/bin/fish" -- Default to zsh for Linux
 
           if isWindows then
               default_shell = "powershell" -- Switch to PowerShell for Windows
