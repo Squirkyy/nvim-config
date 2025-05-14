@@ -48,16 +48,9 @@ local plugins = {
   {
       "NvChad/nvterm",
       config = function()
-          local isWindows = vim.fn.has("win32") == 1
-          local default_shell = "/usr/bin/fish" -- Default to zsh for Linux
-
-          if isWindows then
-              default_shell = "powershell" -- Switch to PowerShell for Windows
-          end
-
           require("nvterm").setup({
               terminals = {
-                  shell = default_shell,
+                  shell = vim.o.shell,
                   -- The rest of your nvterm configuration goes here
               },
               -- Additional nvterm configurations can be added here
