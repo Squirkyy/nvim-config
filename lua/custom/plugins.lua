@@ -27,20 +27,13 @@ local plugins = {
       "rust-lang/rust.vim",
       ft = "rust",
       init = function ()
-          -- vim.g.rustfmt_autosave = 1
-          vim.api.nvim_exec([[autocmd BufWritePre *.rs lua vim.lsp.buf.format({ async = true })]], false)
+          vim.g.rustfmt_autosave = 1
+          -- vim.api.nvim_exec([[autocmd BufWritePre *.rs lua vim.lsp.buf.format({ async = true })]], false)
       end
   },
   {
       "mrcjkb/rustaceanvim",
       ft = "rust",
-      dependencies = {
-          {
-              "lvimuser/lsp-inlayhints.nvim",
-              opts = {}
-          },
-          "neovim/nvim-lspconfig",
-      },
       config = function ()
           return require "custom.configs.rustaceanvim"
       end,
@@ -51,9 +44,7 @@ local plugins = {
           require("nvterm").setup({
               terminals = {
                   shell = vim.o.shell,
-                  -- The rest of your nvterm configuration goes here
               },
-              -- Additional nvterm configurations can be added here
           })
       end,
   },
