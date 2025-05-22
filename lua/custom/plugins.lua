@@ -48,6 +48,16 @@ local plugins = {
           })
       end,
   },
+  {
+    "mikavilpas/yazi.nvim",
+    dependencies = { "nvim-telescope/telescope.nvim" },
+    cmd = { "Yazi" },
+    lazy = false,
+    config = function()
+      require("custom.configs.yazi")
+    end,
+  },
+
 }
 
 return plugins
