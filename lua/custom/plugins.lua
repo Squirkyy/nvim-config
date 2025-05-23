@@ -57,6 +57,13 @@ local plugins = {
       require("custom.configs.yazi")
     end,
   },
+{
+  "frabjous/knap",
+  ft = { "tex", "markdown", "plaintex" },
+  config = function()
+    require("custom.configs.knap")
+  end,
+}
 
 }
 
