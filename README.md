@@ -6,3 +6,9 @@
 4. :MasonInstallAll
 5. ???
 6. Profit
+
+
+Dependencies:
+- Yazi
+- Latex (in some way or another)
+- grep
