@@ -59,11 +59,64 @@ local plugins = {
   },
 {
   "frabjous/knap",
-  ft = { "tex", "markdown", "plaintex" },
+  ft = { "tex", "markdown", "plaintex", "typst" },
   config = function()
     require("custom.configs.knap")
   end,
-}
+},
+{
+  "williamboman/mason-lspconfig.nvim",
+  dependencies = { "williamboman/mason.nvim", "neovim/nvim-lspconfig" },
+  
+  -- This is the new config function that ties everything together
+  config = function()
+    -- 1. Get your custom settings from the file we just edited
+    local lsp_settings = require "plugins.configs.lspconfig"
+
+    -- 2. Define your list of servers
+    local servers = { 
+      "clangd", 
+      "lua_ls"
+      -- Add more here, e.g. "pyright", "tsserver"
+    }
+
+    -- 3. Set up mason-lspconfig to install them
+    require("mason-lspconfig").setup {
+      ensure_installed = servers,
+      automatic_installation = true,
+    }
+
+    -- 4. Manually set up each server using your custom settings
+    require("mason-lspconfig").setup_handlers {
+      
+      -- This is the default handler for any server
+      -- you don't customize below
+      function(server_name)
+        require("lspconfig")[server_name].setup {
+          on_attach = lsp_settings.on_attach,
+          capabilities = lsp_settings.capabilities,
+        }
+      end,
+      
+      -- Custom handler for lua_ls
+      ["lua_ls"] = function()
+        require("lspconfig").lua_ls.setup {
+          on_attach = lsp_settings.on_attach,
+          capabilities = lsp_settings.capabilities,
+          settings = lsp_settings.lua_ls_settings, -- Uses your exported settings
+        }
+      end,
+      
+      -- Custom handler for clangd
+      ["clangd"] = function()
+        require("lspconfig").clangd.setup {
+          on_attach = lsp_settings.clangd_on_attach, -- Uses your exported on_attach
+          capabilities = lsp_settings.capabilities,
+        }
+      end,
+    }
+  end,
+} 
 
 }
 

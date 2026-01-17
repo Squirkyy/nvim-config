@@ -1,11 +1,22 @@
+vim.filetype.add({
+  extension = {
+    typ = "typst",
+  },
+})
+
+vim.filetype.add({
+  extension = { typ = "typst" },
+})
+
 vim.g.knap_viewer = "zathura"
 vim.g.knap_settings = {
+  -- LaTeX (filetype = tex)
   texoutputext = "pdf",
   textopdf = "pdflatex -interaction=nonstopmode -halt-on-error -synctex=1 %docroot%",
-  output_directory = "./",
-  docroot = vim.fn.expand("%:p"),  -- full path to the current file
+  -- Typst (filetype = typst)
+  typstoutputext = "pdf",
+  typsttopdf = "typst compile %docroot% -o %outputfile%",
 }
-
 local map = vim.keymap.set
 local opts = { noremap = true, silent = true }
 
