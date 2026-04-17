@@ -8,6 +8,7 @@ local plugins = {
   },
   {
       "neovim/nvim-lspconfig",
+      version = "v1.*",
       config = function()
           require "plugins.configs.lspconfig"
           require "custom.configs.lspconfig"
@@ -85,13 +86,15 @@ local plugins = {
       ensure_installed = servers,
       automatic_installation = true,
     }
-
-    -- 4. Manually set up each server using your custom settings
+-- 4. Manually set up each server using your custom settings
     require("mason-lspconfig").setup_handlers {
       
-      -- This is the default handler for any server
-      -- you don't customize below
+      -- This is the default handler for any server you don't customize below
       function(server_name)
+        -- We skip clangd here because we handle it in custom/configs/lspconfig.lua
+        if server_name == "clangd" then
+            return
+        end
         require("lspconfig")[server_name].setup {
           on_attach = lsp_settings.on_attach,
           capabilities = lsp_settings.capabilities,
@@ -103,15 +106,7 @@ local plugins = {
         require("lspconfig").lua_ls.setup {
           on_attach = lsp_settings.on_attach,
           capabilities = lsp_settings.capabilities,
-          settings = lsp_settings.lua_ls_settings, -- Uses your exported settings
-        }
-      end,
-      
-      -- Custom handler for clangd
-      ["clangd"] = function()
-        require("lspconfig").clangd.setup {
-          on_attach = lsp_settings.clangd_on_attach, -- Uses your exported on_attach
-          capabilities = lsp_settings.capabilities,
+          settings = lsp_settings.lua_ls_settings,
         }
       end,
     }
