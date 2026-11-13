@@ -28,6 +28,7 @@ lua/plugins/  one lazy.nvim spec file per topic (ui, editor, lsp, rust, terminal
 | Zig | zls |
 | VHDL | vhdl_ls (rust_hdl), needs a `vhdl_ls.toml` in the project root |
 | Lua | lua_ls |
+| Typst | tinymist (+ `<leader>tp` live preview via typst-preview.nvim) |
 
 Inlay hints are enabled automatically wherever the server supports them (toggle: `<leader>ih`).
 
@@ -38,3 +39,10 @@ Inlay hints are enabled automatically wherever the server supports them (toggle:
 - ripgrep (Telescope live grep)
 - A C compiler (e.g. `zig cc`/gcc) for tree-sitter parsers
 - git
+
+## Spell & grammar check
+
+- LTeX+ (LanguageTool) via `ltex-ls-plus` for German and English (language auto-detected) in typst, tex, markdown, text and git commits. It ships its own JDK; no Java install needed.
+- `<leader>ca` on a diagnostic offers fixes, *Add to dictionary* and *Disable rule*; those are saved in `spell/ltex.json`.
+- `:LtexLang de-DE|en-US|auto` forces a language.
+

@@ -6,6 +6,8 @@ local mason_packages = {
   "zls",        -- Zig
   "rust_hdl",   -- VHDL (vhdl_ls)
   "tree-sitter-cli",
+  "ltex-ls-plus", -- spell + grammar (de/en)
+  "tinymist",     -- Typst
 }
 
 return {
@@ -56,6 +58,12 @@ return {
             hint = { enable = true },
           },
         },
+      })
+
+      require("config.ltex").setup()
+
+      vim.lsp.config("tinymist", {
+        settings = { formatterMode = "typstyle" },
       })
 
       -- mason-lspconfig enables every Mason-installed server (vim.lsp.enable),
