@@ -1,11 +1,12 @@
 return {
   {
-    "navarasu/onedark.nvim",
+    "folke/tokyonight.nvim",
     lazy = false,
     priority = 1000,
-    config = function()
-      require("onedark").setup { style = "dark" }
-      require("onedark").load()
+    opts = { style = "night" }, -- night / storm / moon / day
+    config = function(_, opts)
+      require("tokyonight").setup(opts)
+      vim.cmd.colorscheme "tokyonight"
     end,
   },
 
@@ -16,7 +17,7 @@ return {
     event = "VeryLazy",
     opts = {
       options = {
-        theme = "onedark",
+        theme = "auto",
         globalstatus = true,
         section_separators = "",
         component_separators = "",
