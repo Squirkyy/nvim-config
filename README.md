@@ -46,3 +46,4 @@ Inlay hints are enabled automatically wherever the server supports them (toggle:
 - `<leader>ca` on a diagnostic offers fixes, *Add to dictionary* and *Disable rule*; those are saved in `spell/ltex.json`.
 - `:LtexLang de-DE|en-US|auto` forces a language.
 
+- `<leader>ts` / `:LtexToggle` switches the check on/off.

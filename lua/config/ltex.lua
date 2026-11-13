@@ -71,6 +71,26 @@ function M.setup()
     },
   })
 
+  -- :LtexToggle / <leader>ts  -> turn spell & grammar check on/off
+  local enabled = true
+  local function toggle()
+    enabled = not enabled
+    vim.lsp.enable("ltex_plus", enabled)
+    if enabled then
+      -- vim.lsp.enable() doesn't attach to already open buffers: re-trigger FileType (after the old client stopped)
+      vim.defer_fn(function()
+        for _, buf in ipairs(vim.api.nvim_list_bufs()) do
+          if vim.api.nvim_buf_is_loaded(buf) and vim.bo[buf].buftype == "" then
+            vim.api.nvim_exec_autocmds("FileType", { buffer = buf })
+          end
+        end
+      end, 500)
+    end
+    vim.notify("LTeX spell/grammar check: " .. (enabled and "on" or "off"))
+  end
+  vim.api.nvim_create_user_command("LtexToggle", toggle, { desc = "Toggle LTeX spell/grammar check" })
+  vim.keymap.set("n", "<leader>ts", toggle, { desc = "Toggle spell/grammar check (LTeX)" })
+
   -- :LtexLang de-DE | en-US | auto
   vim.api.nvim_create_user_command("LtexLang", function(opts)
     for _, client in ipairs(vim.lsp.get_clients { name = "ltex_plus" }) do
